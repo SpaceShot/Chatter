@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR.Client;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,37 @@ namespace ChatterWindowsStore
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        HubConnection hubConnection;
+        IHubProxy chatHubProxy;
+
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void Connect_Click(object sender, RoutedEventArgs e)
+        {
+            Connect(ServerUrl.Text);
+        }
+
+        private async void Connect(string url)
+        {
+            hubConnection = new HubConnection(ServerUrl.Text);
+
+            chatHubProxy = hubConnection.CreateHubProxy("ChatHub");
+
+            chatHubProxy.On<string, string>("broadcastMessage", (name, message) =>
+                Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
+                    () => { IncomingMessage.Text = string.Format("{0}: {1}",name, message); })
+             );
+
+            await hubConnection.Start();
+            chatHubProxy.Invoke("RegisterUser", "Windows Store Client");
+        }
+
+        private void Send_Click(object sender, RoutedEventArgs e)
+        {
+            chatHubProxy.Invoke("Send", ChatMessage.Text);
         }
     }
 }

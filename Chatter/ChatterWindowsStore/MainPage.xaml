@@ -8,6 +8,18 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBox x:Name="ServerUrl"
+            HorizontalAlignment="Left" Margin="60,66,0,0" TextWrapping="Wrap" Text="http://localhost:51942" VerticalAlignment="Top" Width="543" Height="86" FontSize="48" FontFamily="Global User Interface"/>
+        <Button HorizontalAlignment="Left" Margin="57,177,0,0" VerticalAlignment="Top" Height="92" Width="232" Click="Connect_Click">
+            <TextBlock FontSize="48" FontFamily="Global User Interface">Connect</TextBlock>
+        </Button>
+        <TextBox x:Name="ChatMessage"
+            HorizontalAlignment="Left" Margin="60,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="917" Height="86" FontSize="48" FontFamily="Global User Interface"/>
+        <Button HorizontalAlignment="Left" Margin="57,427,0,0" VerticalAlignment="Top" Height="92" Width="232" Click="Send_Click" FontFamily="Global User Interface">
+            <TextBlock FontSize="48" FontFamily="Global User Interface">Send</TextBlock>
+        </Button>
+        <TextBox x:Name="IncomingMessage"
+        	HorizontalAlignment="Left" Margin="60,546,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="917" Height="86" FontSize="48" FontFamily="Global User Interface" IsReadOnly="True"/>
 
     </Grid>
 </Page>
