@@ -9,17 +9,25 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBox x:Name="ServerUrl"
-            HorizontalAlignment="Left" Margin="60,66,0,0" TextWrapping="Wrap" Text="http://localhost:51942" VerticalAlignment="Top" Width="543" Height="86" FontSize="48" FontFamily="Global User Interface"/>
-        <Button HorizontalAlignment="Left" Margin="57,177,0,0" VerticalAlignment="Top" Height="92" Width="232" Click="Connect_Click">
-            <TextBlock FontSize="48" FontFamily="Global User Interface">Connect</TextBlock>
+            HorizontalAlignment="Left" Margin="60,66,0,0" TextWrapping="Wrap" Text="http://localhost:51942" 
+            VerticalAlignment="Top" Width="350" Height="48" FontSize="24" FontFamily="Global User Interface"/>
+        <Button HorizontalAlignment="Left" Margin="436,63,0,0" VerticalAlignment="Top" Height="54" Width="232" Click="Connect_Click">
+            <TextBlock FontSize="24" FontFamily="Global User Interface">Connect</TextBlock>
         </Button>
         <TextBox x:Name="ChatMessage"
-            HorizontalAlignment="Left" Margin="60,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="917" Height="86" FontSize="48" FontFamily="Global User Interface"/>
-        <Button HorizontalAlignment="Left" Margin="57,427,0,0" VerticalAlignment="Top" Height="92" Width="232" Click="Send_Click" FontFamily="Global User Interface">
-            <TextBlock FontSize="48" FontFamily="Global User Interface">Send</TextBlock>
+            HorizontalAlignment="Left" Margin="60,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="350" Height="54" FontSize="32" FontFamily="Global User Interface"/>
+        <Button HorizontalAlignment="Left" Margin="436,145,0,0" VerticalAlignment="Top" Height="60" Width="232" Click="Send_Click" FontFamily="Global User Interface">
+            <TextBlock FontSize="24" FontFamily="Global User Interface">Send</TextBlock>
         </Button>
+        <TextBlock FontSize="24" Margin="60,240,1251,500">Chat</TextBlock>
         <TextBox x:Name="IncomingMessage"
-        	HorizontalAlignment="Left" Margin="60,546,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="917" Height="86" FontSize="48" FontFamily="Global User Interface" IsReadOnly="True"/>
-
+        	HorizontalAlignment="Left" 
+                 Margin="60,273,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top"
+                 Width="605" Height="289"
+                 FontSize="24" 
+                 FontFamily="Global User Interface" IsReadOnly="True"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible"/>
     </Grid>
 </Page>

@@ -44,7 +44,7 @@ namespace ChatterWindowsStore
 
             chatHubProxy.On<string, string>("broadcastMessage", (name, message) =>
                 Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
-                    () => { IncomingMessage.Text = string.Format("{0}: {1}",name, message); })
+                    () => { IncomingMessage.Text += string.Format("{0}: {1}\n", name, message); })
              );
 
             await hubConnection.Start();
