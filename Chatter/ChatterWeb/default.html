@@ -49,7 +49,7 @@
             var chat = $.connection.chatHub;
 
             // Declare functions the hub will call here BEFORE you "start" the hub
-            //
+            // when you use the magic generated proxy
 
             // Implement the function the hub will call to broadcast messages
             // note use of <hub>.client to denote this is a function called on
@@ -67,49 +67,52 @@
             $.connection.hub.logging = true;
 
 
-            // Start the connection.
-            $.connection.hub.start().done(function () {
+            // Start the connection (note this is asynchronous and returns a promise)
+            $.connection.hub.start()
+                .done(function () {
 
-                // Using jquery to register these event handlers
-                // after the hub connection is established
-                $('#joinchat').click(function () {
-                    chatnick = $('#name').val();
-                    if (isEmpty(chatnick)) {
-                        return;
-                    }
+                    // Using jquery to register these event handlers
+                    // after the hub connection is established
+                    $('#joinchat').click(function () {
+                        chatnick = $('#name').val();
+                        if (isEmpty(chatnick)) {
+                            return;
+                        }
 
-                    // call the Hub's registerUser method and pass in the chosen chat nickname
-                    // the proxy camel cases the method call so javascript developers don't freak out
-                    chat.server.registerUser(chatnick);
+                        // call the Hub's registerUser method and pass in the chosen chat nickname
+                        // the proxy camel cases the method call so javascript developers don't freak out
+                        chat.server.registerUser(chatnick);
 
-                    // remove the join button, disable the username field, enable message entry
-                    $('#joinchat').fadeOut(1250, null).off('click');
-                    $('#name').attr('disabled', true);
-                    $('#newMessage').attr('disabled', false);
-                    $('#newMessage').focus();
-                });
+                        // remove the join button, disable the username field, enable message entry
+                        $('#joinchat').fadeOut(1250, null).off('click');
+                        $('#name').attr('disabled', true);
+                        $('#newMessage').attr('disabled', false);
+                        $('#newMessage').focus();
+                    });
 
-                $('#newMessageContainer').keydown(function (ev) {
-                    var key = ev.keyCode || ev.which;
-                    switch (key) {
-                        case 27:
-                            $('#newMessage').val('');
-                            break;
-                        case 13:
-                            if (chatnick) {
-                                // get the message entry
-                                var newMessage = $('#newMessage').val();
-
-                                // call the hub's Send method
-                                chat.server.send(newMessage);
-
+                    // Wire up the keydown of the "chat input box"
+                    // We're going to listen for ESC or ENTER to speed things along
+                    $('#newMessageContainer').keydown(function (ev) {
+                        var key = ev.keyCode || ev.which;
+                        switch (key) {
+                            case 27: // ESCAPE
                                 $('#newMessage').val('');
-                                ev.preventDefault();
-                                return false;
-                            }
-                    }
+                                break;
+                            case 13:  // ENTER
+                                if (chatnick) {
+                                    // get the message entry
+                                    var newMessage = $('#newMessage').val();
+
+                                    // call the hub's Send method
+                                    chat.server.send(newMessage);
+
+                                    $('#newMessage').val('');
+                                    ev.preventDefault();
+                                    return false;
+                                }
+                        }
+                    });
                 });
-            });
         });
 
     </script>
@@ -123,8 +126,8 @@
         </div>
         <div id="newMessageContainer">
             <textarea accesskey="m" id="newMessage"
-                style="resize: none; width: 98%; height: 20px; background-color: #EEEEEE; margin: 2px 5px 2px 5px;"
-                disabled></textarea>
+                      style="resize: none; width: 98%; height: 20px; background-color: #EEEEEE; margin: 2px 5px 2px 5px;"
+                      disabled></textarea>
         </div>
     </div>
 </body>
